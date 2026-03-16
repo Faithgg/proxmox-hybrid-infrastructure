@@ -1,0 +1,34 @@
+all:
+  children:
+    pfsense_s2:
+      hosts:
+        s2_pfsense:
+          ansible_host: "{{ s2_pfsense_ip | default('10.10.10.10') }}"
+          vmid: 101  # VMID réel fournie par l'école
+          proxmox_node: "pve-s2"
+      vars:
+        vm_name: "s2-pfsense"
+        vm_memory: 2048
+        vm_cores: 2
+        
+    services_s2:
+      hosts:
+        s2_services:
+          ansible_host: "{{ s2_services_ip | default('10.10.10.20') }}"
+          vmid: 102
+          proxmox_node: "pve-s2"
+      vars:
+        vm_name: "s2-services"
+        vm_memory: 4096
+        vm_cores: 2
+        
+    bastion_s2:
+      hosts:
+        s2_bastion:
+          ansible_host: "{{ s2_bastion_ip | default('10.10.10.30') }}"
+          vmid: 103
+          proxmox_node: "pve-s2"
+      vars:
+        vm_name: "s2-bastion"
+        vm_memory: 2048
+        vm_cores: 2

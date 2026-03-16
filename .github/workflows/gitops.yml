@@ -1,0 +1,47 @@
+# name: GitOps Proxmox
+# on:
+#   pull_request:
+#   push:
+#     branches: [ main ]
+
+# jobs:
+#   ansible-ci:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+      
+#       - name: Setup Ansible
+#         uses: actions/setup-python@v5
+#         with:
+#           python-version: '3.11'
+          
+#       - name: Install dependencies
+#         run: |
+#           pip install ansible proxmoxer requests
+#           ansible-galaxy collection install community.general
+          
+#       - name: Inject Vault secrets
+#         uses: hashicorp/vault-action@v3
+#         with:
+#           url: ${{ secrets.VAULT_URL }}
+#           token: ${{ secrets.VAULT_TOKEN }}
+#           secrets: |
+#             ci-kv/proxmox/site1 url | VAULT_PROXMOX_SITE1_URL ;
+#             ci-kv/proxmox/site1 user | VAULT_PROXMOX_SITE1_USER ;
+#             ci-kv/proxmox/site1 password | VAULT_PROXMOX_SITE1_PASSWORD ;
+#             ci-kv/proxmox/site2 url | VAULT_PROXMOX_SITE2_URL ;
+#             ci-kv/proxmox/site2 user | VAULT_PROXMOX_SITE2_USER ;
+#             ci-kv/proxmox/site2 password | VAULT_PROXMOX_SITE2_PASSWORD ;
+      
+#       - name: Ansible Lint + Check (CI)
+#         if: github.event_name == 'pull_request'
+#         run: |
+#           cd infra/ansible
+#           ansible-lint playbooks/*.yml
+#           ansible-playbook playbooks/01_manage_proxmox.yml --check
+          
+#       - name: Ansible Apply (CD)
+#         if: github.ref == 'refs/heads/main'
+#         run: |
+#           cd infra/ansible
+#           ansible-playbook playbooks/01_manage_proxmox.yml
