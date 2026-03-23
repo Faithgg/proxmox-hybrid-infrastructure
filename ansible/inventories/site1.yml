@@ -4,7 +4,7 @@ all:
       hosts:
         s1_pfsense:
           ansible_host: "{{ s1_pfsense_ip | default('10.10.10.10') }}"
-          vmid: 101  # VMID réel fournie par l'école
+          vmid: 106  # VMID réel fournie par l'école
           proxmox_node: "pve-s1"
       vars:
         vm_name: "s1-pfsense"

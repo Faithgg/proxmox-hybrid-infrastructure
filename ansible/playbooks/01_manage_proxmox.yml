@@ -1,4 +1,3 @@
----
 - name: Gérer les VMs Proxmox Site 1 (existantes)
   hosts: localhost
   gather_facts: false
@@ -16,7 +15,7 @@
         api_password: "{{ proxmox_site1.api_password }}"
         node: "{{ pfsense_s1_proxmox_node | default('pve-s1') }}"
         name: "{{ pfsense_s1_vm_name | default('s1-pfsense') }}"
-        vmid: "{{ pfsense_s1_vmid | default(101) }}"
+        vmid: "{{ pfsense_s1_vmid | default(106) }}"
         memory: "{{ pfsense_s1_vm_memory | default(2048) }}"
         cores: "{{ pfsense_s1_vm_cores | default(2) }}"
         state: present
@@ -61,5 +60,3 @@
         - { name: "s1-pfsense" }
         - { name: "s1-services" }
         - { name: "s1-bastion" }
-
-- name: Gérer les VMs Proxmox Site 2 (identique mais site2)
