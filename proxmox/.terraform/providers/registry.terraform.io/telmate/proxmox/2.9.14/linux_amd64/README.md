@@ -1,3 +1,13 @@
+# proxmox/README.md
+
+## Status
+Terraform provider configured and authenticated (GR40@pve).
+
+## Blocker
+GR40@pve has SDN rights only — VM management rights not granted by school.
+Terraform is used for documentation purposes only at this stage.
+All VM configuration is handled via Ansible.
+
 [![Build Status](https://travis-ci.com/Telmate/terraform-provider-proxmox.svg?branch=master)](https://travis-ci.com/Telmate/terraform-provider-proxmox)
 
 # Terraform provider plugin for Proxmox
