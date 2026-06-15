@@ -1,0 +1,7 @@
+plugin: community.general.proxmox
+validate_certs: false
+want_facts: true
+want_proxmox_nodes_ansible_host: true
+url: "{{ (lookup('ansible.builtin.unvault', 'group_vars/all/vault.yml') | ansible.builtin.from_yaml).proxmox_url_site2 }}"
+user: "{{ (lookup('ansible.builtin.unvault', 'group_vars/all/vault.yml') | ansible.builtin.from_yaml).proxmox_user }}"
+password: "{{ (lookup('ansible.builtin.unvault', 'group_vars/all/vault.yml') | ansible.builtin.from_yaml).proxmox_password }}"
