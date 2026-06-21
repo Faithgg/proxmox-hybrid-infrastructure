@@ -1,0 +1,19 @@
+- name: Configure DNS — Site A
+  hosts: site_a
+  become: true
+
+  tasks:
+    - name: Set DNS resolver
+      copy:
+        dest: /etc/resolv.conf
+        content: |
+          nameserver {{ dns_server }}
+          search {{ dns_search }}
+
+    - name: Verify DNS resolution
+      command: nslookup vm2.site-a.local
+      register: dns_check
+
+    - name: Print DNS result
+      debug:
+        msg: "{{ dns_check.stdout }}"
