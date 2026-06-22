@@ -1,0 +1,26 @@
+---
+- name: Configure DNS — Site B
+  hosts: site_b
+  become: true
+
+  tasks:
+    - name: Set pfSense as DNS resolver
+      copy:
+        dest: /etc/resolv.conf
+        content: |
+          nameserver {{ dns_server }}
+          search {{ dns_search }}
+        owner: root
+        mode: '0644'
+
+    - name: Lock resolv.conf against overwrites
+      command: chattr +i /etc/resolv.conf
+
+    - name: Verify DNS resolution
+      command: nslookup pfsense.site-b.local {{ dns_server }}
+      register: dns_check
+      ignore_errors: true
+
+    - name: Print DNS result
+      debug:
+        msg: "{{ dns_check.stdout }}"
